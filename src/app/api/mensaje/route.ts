@@ -2,15 +2,16 @@
 import { connectDB } from "@/libs/mongodb";
 import Message from "@/models/mensajes";
 import User from "@/models/user";
-import { NextResponse } from "next/server";
-import { options } from "../auth/[...nextauth]/route";
+import { NextRequest, NextResponse } from "next/server";
+import {  } from "../auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { Recurso, UserData } from "@/interfaces/tipos";
+import { getToken } from "next-auth/jwt";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
         await connectDB();
-        const session = await getServerSession(options);
+        const session = await getToken({ req, secret: process.env.JWT_SECRET });
         if (!session) {
             return NextResponse.json(
                 { message: "User not found" },
@@ -52,10 +53,10 @@ export async function GET() {
     }
 }
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
     await connectDB();
     try {
-        const session = await getServerSession(options);
+        const session = await getToken({ req, secret: process.env.JWT_SECRET });
 
         if (!session) {
             return NextResponse.json(
@@ -67,7 +68,7 @@ export async function POST(request: Request) {
         const userSession = session?.user as UserData;
         // const email = user.email;
         const senderId = userSession._id;
-        const { receiverId, content, resources }: { receiverId: string, content: string, resources: Recurso[] } = await request.json();
+        const { receiverId, content, resources }: { receiverId: string, content: string, resources: Recurso[] } = await req.json();
         console.log(resources);
         // Crear un nuevo mensaje utilizando el esquema de mensaje
         const message = new Message({

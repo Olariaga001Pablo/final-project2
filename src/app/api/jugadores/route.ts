@@ -4,7 +4,7 @@ import User from "@/models/user";
 import { NextResponse } from "next/server";
 import { Recurso, UserData } from "@/interfaces/tipos";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/route";
+
 
 export async function GET() {
     try {

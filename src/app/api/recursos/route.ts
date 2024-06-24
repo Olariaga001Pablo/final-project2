@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { getToken } from "next-auth/jwt";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/route";
+import {  } from "../auth/[...nextauth]/route";
 import { Recurso, UserData } from "@/interfaces/tipos";
 
 export async function POST(request: Request) {
@@ -45,10 +45,11 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const session = await getServerSession(options);
+    /* const session = await getServerSession(options) */;
+    const session = await getToken({ req, secret: process.env.JWT_SECRET });
 
     if(!session){
       return NextResponse.json(

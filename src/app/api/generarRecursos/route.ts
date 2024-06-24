@@ -3,14 +3,15 @@ import { connectDB } from "@/libs/mongodb";
 import { getServerSession } from "next-auth";
 import User from "@/models/user";
 import mongoose from "mongoose";
-import { options } from "../auth/[...nextauth]/route";
+import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { Recurso, UserData } from "@/interfaces/tipos";
+import { getToken } from "next-auth/jwt";
 
-export async function POST() {
+export async function POST(req: NextRequest) {
     try {
         await connectDB();
-        const session = await getServerSession(options);
+        const session = await getToken({ req, secret: process.env.JWT_SECRET });
 
         if (!session || !session.user) {
             return NextResponse.json(
