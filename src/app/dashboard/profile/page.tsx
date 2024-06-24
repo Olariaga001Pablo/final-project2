@@ -1,5 +1,5 @@
 //dashboard/profile/page.tsx
-'use client'
+"use client"
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Parcela from "@/components/parcela";
@@ -25,7 +25,7 @@ function ProfilePage() {
             const response = await axios.get(`/api/recursos`);
             setUser(response.data);
         } catch (error) {
-            console.error('Error fetching user data:', error);
+            console.error("Error fetching user data:", error);
         } finally {
             setIsLoading(false);
         }
@@ -37,7 +37,7 @@ function ProfilePage() {
 
     async function generarRecursos() {
         try {
-            await axios.post('/api/generarRecursos');
+            await axios.post("/api/generarRecursos");
             await fetchData();
             console.log("Recursos generados");
         }
@@ -48,7 +48,7 @@ function ProfilePage() {
     }
     const nuevaConstruccion = async (pos: number, edificio: string): Promise<boolean> => {
         try {
-            const response = await axios.post('/api/construirEdificio', {
+            const response = await axios.post("/api/construirEdificio", {
                 email: userEmail,
                 edificio,
                 pos,

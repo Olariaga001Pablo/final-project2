@@ -66,7 +66,7 @@ function Signin() {
                                 Login
                             </button>
                             <div className="font-sans text-center text-base">
-                                Don't have an account yet? <Link href="/register" className="text-white font-bold">Sing Up.</Link>
+                                Do not have an account yet? <Link href="/register" className="text-white font-bold">Sing Up.</Link>
                             </div>
                         </div>
                     </form>
