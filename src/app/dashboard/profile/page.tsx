@@ -83,7 +83,7 @@ function ProfilePage() {
     return (
         <div className="flex flex-col h-screen">
             <Image
-                src="/green-Background-v2.png"
+                src="green-background-v2.png"
                 alt="Fondo azul"
                 layout="fill"
                 objectFit="cover"
